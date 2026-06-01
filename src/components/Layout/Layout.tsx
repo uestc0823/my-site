@@ -69,7 +69,7 @@ const S = {
     top: 0,
     bottom: 0,
     width: 240,
-    background: `url('/assets/img/menu_bg.svg') center/cover no-repeat`,
+    background: `url('assets/img/menu_bg.svg') center/cover no-repeat`,
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',

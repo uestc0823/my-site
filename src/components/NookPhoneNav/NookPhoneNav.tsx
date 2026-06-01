@@ -35,29 +35,28 @@ const NookPhoneNav: React.FC<NookPhoneNavProps> = ({
   const minutes = time.getMinutes().toString().padStart(2, '0')
   const ampm = hours >= 12 ? 'PM' : 'AM'
   const displayHours = hours % 12 || 12
+  const displayTime = `${displayHours}:${minutes} ${ampm}`
 
-  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+  const weekdaysShort = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
   const month = time.getMonth() + 1
   const day = time.getDate()
-  const weekday = weekdays[time.getDay()]
-  const dateStr = `${month}月${day}日 ${weekday}`
+  const weekdayShort = weekdaysShort[time.getDay()]
+  const dateStr = `${month}.${day} ${weekdayShort}`
 
   return (
     <div className={`${styles.phoneWrapper} ${className || ''}`}>
       <div className={styles.phone}>
         <div className={styles.homeScreen}>
-          {/* Time Display */}
+          {/* Date & Time Display */}
           <div className={styles.dateDisplay}>
             <div className={styles.dateDisplayHeader}>
               <span className={styles.iconWifi} />
-              <span>
-                {displayHours}
-                <span className={styles.blink}>:</span>
-                {minutes} {ampm}
+              <span className={styles.dateTimeSpan}>
+                {dateStr} {displayTime}
               </span>
               <span className={styles.iconLocation} />
             </div>
-            <div className={styles.dayText}>{dateStr}</div>
+            <div className={styles.dayText}>{welcomeText}</div>
           </div>
 
           {/* Apps Grid */}

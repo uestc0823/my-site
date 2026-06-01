@@ -5,12 +5,12 @@ import type { NookPhoneApp } from '../components/NookPhoneNav/NookPhoneNav'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const APPS: NookPhoneApp[] = [
-  { id: 'about', label: '关于我', color: '#889DF0', iconClass: 'iconChat', route: '/about', iconUrl: '/assets/img/nook-phone/Aboutme.png' },
-  { id: 'resume', label: '简历', color: '#E59266', iconClass: 'iconMiles', route: '/resume', iconUrl: '/assets/img/nook-phone/Resume.png' },
-  { id: 'projects', label: '项目', color: '#B77DEE', iconClass: 'iconDesign', route: '/projects', iconUrl: '/assets/img/nook-phone/Project.png' },
-  { id: 'skills', label: '技能', color: '#82D5BB', iconClass: 'iconDiy', route: '/skills', iconUrl: '/assets/img/nook-phone/Skills.png' },
-  { id: 'blog', label: '博客', color: '#F7CD67', iconClass: 'iconCritterpedia', route: '/blog', iconUrl: '/assets/img/nook-phone/Blogs.png' },
-  { id: 'contact', label: '联系', color: '#F8A6B2', iconClass: 'iconChat', route: '/contact', iconUrl: '/assets/img/nook-phone/contact.png' },
+  { id: 'about', label: '关于我', color: '#889DF0', iconClass: 'iconChat', route: '/about', iconUrl: 'assets/img/nook-phone/Aboutme.png' },
+  { id: 'resume', label: '简历', color: '#E59266', iconClass: 'iconMiles', route: '/resume', iconUrl: 'assets/img/nook-phone/Resume.png' },
+  { id: 'projects', label: '项目', color: '#B77DEE', iconClass: 'iconDesign', route: '/projects', iconUrl: 'assets/img/nook-phone/Project.png' },
+  { id: 'skills', label: '技能', color: '#82D5BB', iconClass: 'iconDiy', route: '/skills', iconUrl: 'assets/img/nook-phone/Skills.png' },
+  { id: 'blog', label: '博客', color: '#F7CD67', iconClass: 'iconCritterpedia', route: '/blog', iconUrl: 'assets/img/nook-phone/Blogs.png' },
+  { id: 'contact', label: '联系', color: '#F8A6B2', iconClass: 'iconChat', route: '/contact', iconUrl: 'assets/img/nook-phone/contact.png' },
 ]
 
 interface HomeProps {
@@ -28,7 +28,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100dvh',
-        background: `url('/assets/img/home_bg.webp') 0 0 / auto repeat, #7DC395`,
+        background: `url('assets/img/home_bg.webp') 0 0 / auto repeat, #7DC395`,
         animation: 'bgScroll 80s linear infinite',
         fontFamily: "Nunito, 'Noto Sans SC', 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
         position: 'relative',
