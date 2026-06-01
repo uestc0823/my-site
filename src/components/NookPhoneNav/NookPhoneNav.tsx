@@ -7,6 +7,7 @@ export interface NookPhoneApp {
   color: string
   iconClass: string
   route: string
+  iconUrl?: string
   hasNotification?: boolean
 }
 
@@ -65,7 +66,11 @@ const NookPhoneNav: React.FC<NookPhoneNavProps> = ({
                   className={styles.appTile}
                   style={{ backgroundColor: app.color }}
                 >
-                  <div className={`${styles.appIcon} ${styles[app.iconClass as keyof typeof styles] || ''}`} />
+                  {app.iconUrl ? (
+                    <img src={app.iconUrl} alt={app.label} className={styles.appIconImg} />
+                  ) : (
+                    <div className={`${styles.appIcon} ${styles[app.iconClass as keyof typeof styles] || ''}`} />
+                  )}
                   {app.hasNotification && <div className={styles.badge} />}
                 </div>
                 <span className={styles.appLabel}>{app.label}</span>

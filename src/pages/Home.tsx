@@ -1,16 +1,16 @@
 import React from 'react'
-import { Typewriter, Time, Footer } from 'animal-island-ui'
+import { Typewriter, Footer } from 'animal-island-ui'
 import NookPhoneNav from '../components/NookPhoneNav/NookPhoneNav'
 import type { NookPhoneApp } from '../components/NookPhoneNav/NookPhoneNav'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const APPS: NookPhoneApp[] = [
-  { id: 'about', label: '关于我', color: '#889DF0', iconClass: 'iconChat', route: '/about' },
-  { id: 'resume', label: '简历', color: '#E59266', iconClass: 'iconMiles', route: '/resume' },
-  { id: 'projects', label: '项目', color: '#B77DEE', iconClass: 'iconDesign', route: '/projects' },
-  { id: 'skills', label: '技能', color: '#82D5BB', iconClass: 'iconDiy', route: '/skills' },
-  { id: 'blog', label: '博客', color: '#F7CD67', iconClass: 'iconCritterpedia', route: '/blog' },
-  { id: 'contact', label: '联系', color: '#F8A6B2', iconClass: 'iconChat', route: '/contact' },
+  { id: 'about', label: '关于我', color: '#889DF0', iconClass: 'iconChat', route: '/about', iconUrl: '/assets/img/nook-phone/Aboutme.png' },
+  { id: 'resume', label: '简历', color: '#E59266', iconClass: 'iconMiles', route: '/resume', iconUrl: '/assets/img/nook-phone/Resume.png' },
+  { id: 'projects', label: '项目', color: '#B77DEE', iconClass: 'iconDesign', route: '/projects', iconUrl: '/assets/img/nook-phone/Project.png' },
+  { id: 'skills', label: '技能', color: '#82D5BB', iconClass: 'iconDiy', route: '/skills', iconUrl: '/assets/img/nook-phone/Skills.png' },
+  { id: 'blog', label: '博客', color: '#F7CD67', iconClass: 'iconCritterpedia', route: '/blog', iconUrl: '/assets/img/nook-phone/Blogs.png' },
+  { id: 'contact', label: '联系', color: '#F8A6B2', iconClass: 'iconChat', route: '/contact', iconUrl: '/assets/img/nook-phone/contact.png' },
 ]
 
 interface HomeProps {
@@ -38,11 +38,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         padding: isMobile ? '0 16px' : '0',
       }}
     >
-      {/* Time widget - top right */}
-      <div style={{ position: 'absolute', top: 20, right: 20, zIndex: 10 }}>
-        <Time />
-      </div>
-
       {/* Welcome text */}
       <div
         style={{
