@@ -26,7 +26,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: isMobile ? 'flex-start' : 'center',
         minHeight: '100dvh',
         background: `url('assets/img/home_bg.webp') 0 0 / auto repeat, #7DC395`,
         animation: 'bgScroll 80s linear infinite',
@@ -35,35 +35,37 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         overflowY: 'auto',
         overflowX: 'hidden',
         WebkitOverflowScrolling: 'touch',
-        padding: isMobile ? '0 16px' : '0',
+        padding: isMobile ? '32px 16px 0' : '0',
       }}
     >
       {/* Welcome text */}
       <div
         style={{
           textAlign: 'center',
-          marginBottom: 12,
-          padding: '0 20px',
+          marginBottom: isMobile ? 8 : 12,
+          padding: '0 16px',
         }}
       >
         <h1
           style={{
-            fontSize: isMobile ? 32 : 46,
+            fontSize: isMobile ? 28 : 46,
             fontWeight: 800,
             color: '#FFF9E6',
             textShadow: '0px 4px 1px rgba(0,0,0,0.4)',
             marginBottom: 6,
             letterSpacing: 1,
+            whiteSpace: 'nowrap',
           }}
         >
           Jimmy Liu的个人网站
         </h1>
         <div
           style={{
-            fontSize: isMobile ? 15 : 19,
+            fontSize: isMobile ? 14 : 19,
             color: 'rgba(255,255,255,0.85)',
             fontWeight: 600,
             letterSpacing: 0.5,
+            whiteSpace: 'nowrap',
           }}
         >
           <Typewriter speed={60} trigger="home-welcome">
