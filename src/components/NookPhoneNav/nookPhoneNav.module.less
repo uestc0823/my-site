@@ -58,14 +58,24 @@
 }
 
 .dateDisplayHeader {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   width: 100%;
   align-items: center;
   font-size: 20px;
   color: #DDDBCC;
   font-weight: 800;
   letter-spacing: 1px;
+}
+
+.dateLeft {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dateRight {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .dateTimeSpan {
@@ -152,9 +162,14 @@
 
 .appIconImg {
   display: block;
-  width: 70%;
-  height: 70%;
+  width: 82%;
+  height: 82%;
   object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.appTile:hover .appIconImg {
+  transform: scale(1.1);
 }
 
 // Specific icon sizing (matching Phone component)

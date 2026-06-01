@@ -50,11 +50,15 @@ const NookPhoneNav: React.FC<NookPhoneNavProps> = ({
           {/* Date & Time Display */}
           <div className={styles.dateDisplay}>
             <div className={styles.dateDisplayHeader}>
-              <span className={styles.iconWifi} />
+              <span className={styles.dateLeft}>
+                <span className={styles.iconWifi} />
+              </span>
               <span className={styles.dateTimeSpan}>
                 {dateStr} {displayTime}
               </span>
-              <span className={styles.iconLocation} />
+              <span className={styles.dateRight}>
+                <span className={styles.iconLocation} />
+              </span>
             </div>
             <div className={styles.dayText}>{welcomeText}</div>
           </div>
