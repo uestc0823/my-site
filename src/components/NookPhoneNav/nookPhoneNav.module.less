@@ -1,0 +1,221 @@
+// ============================================
+// NookPhoneNav - Interactive Navigation Phone
+// Replicates Phone visual + adds click navigation
+// ============================================
+
+@font-family: Nunito, 'Noto Sans SC', 'Zen Maru Gothic',
+  -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+
+.phoneWrapper {
+  transform-origin: center center;
+
+  @media (max-width: 600px) {
+    transform: scale(0.5);
+  }
+
+  @media (min-width: 601px) and (max-width: 900px) {
+    transform: scale(0.75);
+  }
+}
+
+.phone {
+  position: relative;
+  width: 420px;
+  height: 520px;
+  background: #F8F4E8;
+  border-radius: 108px;
+  overflow: hidden;
+}
+
+// ============================================
+// Home Screen
+// ============================================
+.homeScreen {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 18px;
+  padding-bottom: 60px;
+  background: #F8F4E8;
+  background-size: 100% 200%;
+  animation: grasswave 8s ease-in-out infinite;
+}
+
+@keyframes grasswave {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 0% 100%; }
+}
+
+// ============================================
+// Date / Time Display
+// ============================================
+.dateDisplay {
+  text-align: center;
+  width: 100%;
+  padding: 0 50px 12px 50px;
+  font-family: @font-family;
+}
+
+.dateDisplayHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  font-size: 26px;
+  color: #DDDBCC;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.blink {
+  font-size: 26px;
+  font-weight: 800;
+  color: #DDDBCC;
+  vertical-align: text-bottom;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.dayText {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  height: 36px;
+  margin-top: 8px;
+  color: #725C4E;
+  letter-spacing: 2px;
+}
+
+// ============================================
+// Apps Grid
+// ============================================
+.appsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 8px;
+  flex: 1;
+  align-content: start;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.appItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.appTile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 36px;
+  position: relative;
+
+  &:hover .appIcon {
+    animation: iconBounce 0.3s ease-in-out forwards;
+  }
+}
+
+@keyframes iconBounce {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(-5deg); }
+  100% { transform: scale(1.1) rotate(-4deg); }
+}
+
+.appIcon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70% auto;
+}
+
+// Specific icon sizing (matching Phone component)
+.iconCritterpedia { background-image: url('/assets/img/icons/icon-critterpedia.svg'); width: 82px; }
+.iconCamera { background-image: url('/assets/img/icons/icon-camera.svg'); }
+.iconMiles { background-image: url('/assets/img/icons/icon-miles.svg'); }
+.iconDiy { background-image: url('/assets/img/icons/icon-diy.svg'); }
+.iconDesign { background-image: url('/assets/img/icons/icon-design.svg'); }
+.iconMap { background-image: url('/assets/img/icons/icon-map.svg'); width: 90px; }
+.iconVariant { background-image: url('/assets/img/icons/icon-variant.svg'); width: 80px; }
+.iconHelicopter { background-image: url('/assets/img/icons/icon-helicopter.svg'); }
+.iconChat { background-image: url('/assets/img/icons/icon-chat.svg'); }
+.iconShopping { background-image: url('/assets/img/icons/icon-shopping.svg'); }
+
+// ============================================
+// App Label
+// ============================================
+.appLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #725C4E;
+  white-space: nowrap;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+// ============================================
+// Status Icons
+// ============================================
+.iconWifi {
+  display: inline-block;
+  width: 70px;
+  height: 26px;
+  background: url('/assets/img/icons/wifi.svg') center / contain no-repeat;
+}
+
+.iconLocation {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: url('/assets/img/icons/location.svg') center / contain no-repeat;
+}
+
+.iconPage {
+  display: inline-block;
+  width: 58px;
+  height: 28px;
+  background: url('/assets/img/icons/page.svg') center / contain no-repeat;
+}
+
+// ============================================
+// Badge (notification dot)
+// ============================================
+.badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #FF544A;
+  border: 4px solid #F8F4E8;
+}
+
+// ============================================
+// Page Indicator
+// ============================================
+.pageIndicator {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding-bottom: 28px;
+  align-items: center;
+}

@@ -1,0 +1,87 @@
+import React from 'react'
+import { Typewriter, Time, Footer } from 'animal-island-ui'
+import NookPhoneNav from '../components/NookPhoneNav/NookPhoneNav'
+import type { NookPhoneApp } from '../components/NookPhoneNav/NookPhoneNav'
+
+const APPS: NookPhoneApp[] = [
+  { id: 'about', label: '关于我', color: '#889DF0', iconClass: 'iconChat', route: '/about' },
+  { id: 'resume', label: '简历', color: '#E59266', iconClass: 'iconMiles', route: '/resume' },
+  { id: 'projects', label: '项目', color: '#B77DEE', iconClass: 'iconDesign', route: '/projects' },
+  { id: 'skills', label: '技能', color: '#82D5BB', iconClass: 'iconDiy', route: '/skills' },
+  { id: 'blog', label: '博客', color: '#F7CD67', iconClass: 'iconCritterpedia', route: '/blog' },
+  { id: 'contact', label: '联系', color: '#F8A6B2', iconClass: 'iconChat', route: '/contact' },
+]
+
+interface HomeProps {
+  onNavigate: (path: string) => void
+}
+
+const Home: React.FC<HomeProps> = ({ onNavigate }) => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100dvh',
+        background: `url('/assets/img/home_bg.webp') 0 0 / auto repeat, #7DC395`,
+        animation: 'bgScroll 80s linear infinite',
+        fontFamily: "Nunito, 'Noto Sans SC', 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
+        position: 'relative',
+        overflow: 'auto',
+      }}
+    >
+      {/* Time widget - top right */}
+      <div style={{ position: 'absolute', top: 20, right: 20, zIndex: 10 }}>
+        <Time />
+      </div>
+
+      {/* Welcome text */}
+      <div
+        style={{
+          textAlign: 'center',
+          marginBottom: 12,
+          padding: '0 20px',
+        }}
+      >
+        <h1
+          style={{
+            fontSize: 46,
+            fontWeight: 800,
+            color: '#FFF9E6',
+            textShadow: '0px 4px 1px rgba(0,0,0,0.4)',
+            marginBottom: 6,
+            letterSpacing: 1,
+          }}
+        >
+          Jimmy Liu的个人网站
+        </h1>
+        <div
+          style={{
+            fontSize: 19,
+            color: 'rgba(255,255,255,0.85)',
+            fontWeight: 600,
+            letterSpacing: 0.5,
+          }}
+        >
+          <Typewriter speed={60} trigger="home-welcome">
+            <span>一个热衷于探索新技术的半导体行业从业者</span>
+          </Typewriter>
+        </div>
+      </div>
+
+      {/* NookPhone Navigation */}
+      <NookPhoneNav
+        apps={APPS}
+        onNavigate={onNavigate}
+        welcomeText="Welcome!"
+      />
+
+      <Footer type="sea" />
+    </div>
+  )
+}
+
+Home.displayName = 'Home'
+export default Home
