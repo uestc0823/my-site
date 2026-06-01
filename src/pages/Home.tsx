@@ -2,6 +2,7 @@ import React from 'react'
 import { Typewriter, Time, Footer } from 'animal-island-ui'
 import NookPhoneNav from '../components/NookPhoneNav/NookPhoneNav'
 import type { NookPhoneApp } from '../components/NookPhoneNav/NookPhoneNav'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const APPS: NookPhoneApp[] = [
   { id: 'about', label: '关于我', color: '#889DF0', iconClass: 'iconChat', route: '/about' },
@@ -17,6 +18,8 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
+  const isMobile = useIsMobile()
+
   return (
     <div
       style={{
@@ -29,7 +32,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         animation: 'bgScroll 80s linear infinite',
         fontFamily: "Nunito, 'Noto Sans SC', 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
         position: 'relative',
-        overflow: 'auto',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        WebkitOverflowScrolling: 'touch',
+        padding: isMobile ? '0 16px' : '0',
       }}
     >
       {/* Time widget - top right */}
@@ -47,7 +53,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       >
         <h1
           style={{
-            fontSize: 46,
+            fontSize: isMobile ? 32 : 46,
             fontWeight: 800,
             color: '#FFF9E6',
             textShadow: '0px 4px 1px rgba(0,0,0,0.4)',
@@ -59,7 +65,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </h1>
         <div
           style={{
-            fontSize: 19,
+            fontSize: isMobile ? 15 : 19,
             color: 'rgba(255,255,255,0.85)',
             fontWeight: 600,
             letterSpacing: 0.5,

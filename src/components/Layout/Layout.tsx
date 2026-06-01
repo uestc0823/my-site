@@ -26,7 +26,9 @@ const S = {
   } as React.CSSProperties,
   main: {
     flex: 1,
-    overflow: 'auto',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    WebkitOverflowScrolling: 'touch',
     position: 'relative',
     zIndex: 1,
   } as React.CSSProperties,
