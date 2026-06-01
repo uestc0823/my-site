@@ -162,7 +162,7 @@ const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, childr
       {/* Decorative bottom image (desktop only) */}
       {!isMobile && (
         <img
-          src="/assets/img/guide-bg-line.webp"
+          src="./assets/img/guide-bg-line.webp"
           alt=""
           loading="lazy"
           style={S.decoImage}

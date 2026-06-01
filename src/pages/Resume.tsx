@@ -13,7 +13,7 @@ const Resume: React.FC = () => {
         <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 16 }}>
           <Card style={{ padding: '20px 20px', display: 'flex', gap: 16, alignItems: 'flex-start', background: 'rgb(247, 243, 223)', border: '2px solid #9f927d', borderRadius: 18 }}>
             <img
-              src="/assets/img/logo-uestc.png"
+              src="./assets/img/logo-uestc.png"
               alt="电子科技大学"
               style={{ width: 56, height: 56, borderRadius: 12, objectFit: 'contain', flexShrink: 0, background: '#fff', padding: 4 }}
             />
@@ -34,7 +34,7 @@ const Resume: React.FC = () => {
 
           <Card style={{ padding: '20px 20px', display: 'flex', gap: 16, alignItems: 'flex-start', background: 'rgb(247, 243, 223)', border: '2px solid #9f927d', borderRadius: 18 }}>
             <img
-              src="/assets/img/logo-dlut.png"
+              src="./assets/img/logo-dlut.png"
               alt="大连理工大学"
               style={{ width: 56, height: 56, borderRadius: 12, objectFit: 'contain', flexShrink: 0, background: '#fff', padding: 4 }}
             />
@@ -63,7 +63,7 @@ const Resume: React.FC = () => {
         <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 16 }}>
           <Card style={{ padding: '20px 20px', display: 'flex', gap: 16, alignItems: 'flex-start', background: 'rgb(247, 243, 223)', border: '2px solid #9f927d', borderRadius: 18 }}>
             <img
-              src="/assets/img/logo-novosense.png"
+              src="./assets/img/logo-novosense.png"
               alt="纳芯微电子"
               style={{ width: 56, height: 56, borderRadius: 12, objectFit: 'contain', flexShrink: 0, background: '#fff', padding: 4 }}
             />
@@ -80,7 +80,7 @@ const Resume: React.FC = () => {
 
           <Card style={{ padding: '20px 20px', display: 'flex', gap: 16, alignItems: 'flex-start', background: 'rgb(247, 243, 223)', border: '2px solid #9f927d', borderRadius: 18 }}>
             <img
-              src="/assets/img/logo-midea.png"
+              src="./assets/img/logo-midea.png"
               alt="美的集团"
               style={{ width: 56, height: 56, borderRadius: 12, objectFit: 'contain', flexShrink: 0, background: '#fff', padding: 4 }}
             />

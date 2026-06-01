@@ -140,7 +140,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onNavigate }) => {
       <div style={S.contactList}>
         <div style={S.contactItem}>
           <span style={S.contactIcon}>📧</span>
-          <a href="mailto:mvez14@163.com" style={S.contactLink}>邮箱联系</a>
+          <a href="mailto:mvez14@163.com" style={{ ...S.contactLink, textDecoration: 'underline', cursor: 'pointer' }}>mvez14@163.com</a>
         </div>
         <div style={S.contactItem}>
           <span style={S.contactIcon}>📍</span>
