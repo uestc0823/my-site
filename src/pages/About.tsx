@@ -12,7 +12,7 @@ const About: React.FC = () => {
       <div style={{ marginTop: 16, marginBottom: 32 }}>
         <span style={{ fontSize: 15, color: '#8c857b', fontWeight: 600, letterSpacing: '0.05em', display: 'block', marginBottom: 4 }}>Hey there!</span>
         <h1 style={{ fontSize: 32, fontWeight: 800, color: '#4a4238', margin: 0, letterSpacing: '-0.01em' }}>
-          我是 刘枭，
+          我是 JimmyLiu，
           <CycleTypewriter
             texts={[
               '欢迎来到我的个人网页！',

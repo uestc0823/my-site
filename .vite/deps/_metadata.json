@@ -1,0 +1,40 @@
+{
+  "hash": "d08f51b0",
+  "configHash": "0faaa8bb",
+  "lockfileHash": "95f1b871",
+  "browserHash": "9788f8bd",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "ef30c8cb",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "8aa0c859",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "103c990a",
+      "needsInterop": true
+    },
+    "animal-island-ui": {
+      "src": "../../node_modules/animal-island-ui/dist/es/index.js",
+      "file": "animal-island-ui.js",
+      "fileHash": "761eb6c9",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-3MDXY62U": {
+      "file": "chunk-3MDXY62U.js"
+    },
+    "chunk-YFGLSBDS": {
+      "file": "chunk-YFGLSBDS.js"
+    }
+  }
+}

@@ -132,7 +132,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onNavigate }) => {
       {/* 个人信息 */}
       <div style={S.header} onClick={() => onNavigate('/')}>
         <div style={S.avatar}>JL</div>
-        <div style={S.name}>刘枭</div>
+        <div style={S.name}>JimmyLiu</div>
         <div style={S.title}>纳芯微电子 · 应用工程师</div>
       </div>
 
@@ -140,19 +140,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onNavigate }) => {
       <div style={S.contactList}>
         <div style={S.contactItem}>
           <span style={S.contactIcon}>📧</span>
-          <a href="mailto:13871193033@163.com" style={S.contactLink}>13871193033@163.com</a>
-        </div>
-        <div style={S.contactItem}>
-          <span style={S.contactIcon}>📱</span>
-          <a href="tel:13871193033" style={S.contactLink}>138-7119-3033</a>
+          <a href="mailto:mvez14@163.com" style={S.contactLink}>邮箱联系</a>
         </div>
         <div style={S.contactItem}>
           <span style={S.contactIcon}>📍</span>
-          <span>湖北省武汉市</span>
-        </div>
-        <div style={S.contactItem}>
-          <span style={S.contactIcon}>🎂</span>
-          <span>2001.08.24</span>
+          <span>武汉</span>
         </div>
       </div>
 

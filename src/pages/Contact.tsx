@@ -20,7 +20,7 @@ const Contact: React.FC = () => {
       <Title size="large" color="app-pink">联系我</Title>
 
       <div style={{ marginTop: 24, marginBottom: 24, color: '#7c5734', fontSize: 17, fontWeight: 500 }}>
-        有任何问题或想法，欢迎留言！联系方式可在左侧侧边栏查看。
+        有任何问题或想法，欢迎通过邮箱或下方留言联系我。
       </div>
 
       <Divider type="line-teal" />
@@ -39,7 +39,7 @@ const Contact: React.FC = () => {
           />
           <Collapse
             question="如何联系你？"
-            answer="可以通过侧边栏的邮箱或电话联系我，也可以在下方留言。"
+            answer="可以通过侧边栏的邮箱链接联系我，也可以在下方留言。如需获取完整版 PDF 简历，欢迎发送邮件，我将在第一时间回复。"
           />
         </div>
       </div>
