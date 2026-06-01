@@ -36,6 +36,12 @@ const NookPhoneNav: React.FC<NookPhoneNavProps> = ({
   const ampm = hours >= 12 ? 'PM' : 'AM'
   const displayHours = hours % 12 || 12
 
+  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+  const month = time.getMonth() + 1
+  const day = time.getDate()
+  const weekday = weekdays[time.getDay()]
+  const dateStr = `${month}月${day}日 ${weekday}`
+
   return (
     <div className={`${styles.phoneWrapper} ${className || ''}`}>
       <div className={styles.phone}>
@@ -51,7 +57,7 @@ const NookPhoneNav: React.FC<NookPhoneNavProps> = ({
               </span>
               <span className={styles.iconLocation} />
             </div>
-            <div className={styles.dayText}>{welcomeText}</div>
+            <div className={styles.dayText}>{dateStr}</div>
           </div>
 
           {/* Apps Grid */}
