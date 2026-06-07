@@ -8,12 +8,11 @@ interface BlogProps {
 }
 
 const TAG_COLOR_MAP: Record<string, string> = {
-  '电路设计': 'app-blue',
   '工具实践': 'app-green',
-  '跨界探索': 'app-orange',
-  '学习记录': 'purple',
-  '竞赛经历': 'app-yellow',
+  '技术笔记': 'app-blue',
   '项目日志': 'warm-peach-pink',
+  '跨界探索': 'app-orange',
+  '随笔杂谈': 'purple',
 }
 
 const Blog: React.FC<BlogProps> = ({ onNavigate }) => {

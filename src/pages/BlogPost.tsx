@@ -12,12 +12,11 @@ interface BlogPostProps {
 }
 
 const TAG_COLOR_MAP: Record<string, string> = {
-  '电路设计': 'app-blue',
   '工具实践': 'app-green',
-  '跨界探索': 'app-orange',
-  '学习记录': 'purple',
-  '竞赛经历': 'app-yellow',
+  '技术笔记': 'app-blue',
   '项目日志': 'warm-peach-pink',
+  '跨界探索': 'app-orange',
+  '随笔杂谈': 'purple',
 }
 
 const FONT_FAMILY = "Nunito, 'Noto Sans SC', 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
@@ -76,12 +75,11 @@ const S = {
 }
 
 const TAG_PILL_COLORS: Record<string, string> = {
-  '电路设计': '#5B8DEF',
   '工具实践': '#5AC28C',
-  '跨界探索': '#E8854D',
-  '学习记录': '#9B6DD7',
-  '竞赛经历': '#E5B94E',
+  '技术笔记': '#5B8DEF',
   '项目日志': '#E89AAB',
+  '跨界探索': '#E8854D',
+  '随笔杂谈': '#9B6DD7',
 }
 
 const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
