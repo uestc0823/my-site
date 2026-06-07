@@ -6,36 +6,12 @@ const Contact: React.FC = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [sending, setSending] = useState(false)
-  const [result, setResult] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
 
-  const handleSubmit = async () => {
-    if (!name || !email || !message || sending) return
-    setSending(true)
-    setResult(null)
-
-    try {
-      const apiUrl = import.meta.env.VITE_API_URL || '/api/contact'
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message }),
-      })
-      const data = await res.json()
-
-      if (res.ok) {
-        setResult({ type: 'success', text: '留言已发送！我会尽快回复你。' })
-        setName('')
-        setEmail('')
-        setMessage('')
-      } else {
-        setResult({ type: 'error', text: data.error || '发送失败，请稍后再试。' })
-      }
-    } catch {
-      setResult({ type: 'error', text: '网络错误，请稍后再试。' })
-    } finally {
-      setSending(false)
-    }
+  const handleSubmit = () => {
+    if (!name || !email || !message) return
+    const subject = encodeURIComponent(`[网站留言] 来自 ${name}`)
+    const body = encodeURIComponent(`姓名：${name}\n邮箱：${email}\n\n${message}`)
+    window.open(`mailto:mvez14@163.com?subject=${subject}&body=${body}`)
   }
 
   return (
@@ -130,30 +106,19 @@ const Contact: React.FC = () => {
               />
             </div>
 
-            {result && (
-              <div style={{
-                padding: '10px 16px',
-                borderRadius: 12,
-                fontSize: 15,
-                fontWeight: 600,
-                color: result.type === 'success' ? '#2a7d4f' : '#a03030',
-                background: result.type === 'success' ? 'rgba(42, 125, 79, 0.1)' : 'rgba(160, 48, 48, 0.1)',
-                border: `1.5px solid ${result.type === 'success' ? 'rgba(42, 125, 79, 0.2)' : 'rgba(160, 48, 48, 0.2)'}`,
-              }}>
-                {result.text}
-              </div>
-            )}
-
             <Button
               type="primary"
               size="large"
               block
               onClick={handleSubmit}
               disabled={!name || !email || !message}
-              loading={sending}
             >
-              {sending ? '发送中...' : '发送留言'}
+              发送留言
             </Button>
+
+            <div style={{ fontSize: 14, color: '#8a7b66', textAlign: 'center' }}>
+              点击后会打开你的邮件客户端，留言将发送到我的邮箱
+            </div>
           </div>
         </Card>
       </div>
