@@ -1,75 +1,24 @@
 import React from 'react'
 import { Card, Divider, Collapse } from 'animal-island-ui'
 import Title from '../components/Title/Title'
+import { getAllPosts } from '../utils/markdown'
 
-interface BlogPost {
-  id: string
-  title: string
-  excerpt: string
-  date: string
-  tag: string
-  color: string
-  readTime: string
+interface BlogProps {
+  onNavigate: (path: string) => void
 }
 
-const POSTS: BlogPost[] = [
-  {
-    id: '1',
-    title: 'GaN 功率器件在电机驱动中的应用思考',
-    excerpt: '第三代宽禁带半导体 GaN 器件在 BLDC 驱动系统中的非线性开关特性分析与建模经验总结。',
-    date: '2025-12',
-    tag: '电路设计',
-    color: 'app-blue',
-    readTime: '8分钟',
-  },
-  {
-    id: '2',
-    title: '从 MATLAB 到 Python：工程数据处理工作流演进',
-    excerpt: '如何将实验室仪器产生的海量高频波形数据，通过自动化脚本实现高效清洗与特征提取。',
-    date: '2025-09',
-    tag: '工具实践',
-    color: 'app-green',
-    readTime: '6分钟',
-  },
-  {
-    id: '3',
-    title: 'AI 辅助硬件开发的初步实践',
-    excerpt: '将生成式 AI 引入工程开发流程，利用大语言模型辅助代码编写、文档生成与方案分析的实践心得。',
-    date: '2025-07',
-    tag: '跨界探索',
-    color: 'app-orange',
-    readTime: '7分钟',
-  },
-  {
-    id: '4',
-    title: '信号链 IC 设计入门笔记',
-    excerpt: '信号链与混合信号 IC 的基础知识梳理，包括 ADC/DAC 架构、运放设计要点等。',
-    date: '2024-11',
-    tag: '学习记录',
-    color: 'purple',
-    readTime: '10分钟',
-  },
-  {
-    id: '5',
-    title: '全国大学生数学竞赛参赛回顾',
-    excerpt: '第十三届全国大学生数学竞赛决赛二等奖的备赛历程与经验分享。',
-    date: '2023-06',
-    tag: '竞赛经历',
-    color: 'app-yellow',
-    readTime: '5分钟',
-  },
-  {
-    id: '6',
-    title: '动森风格个人网站开发手记',
-    excerpt: '基于 animal-island-ui 组件库，用 React + TypeScript 构建动森风格个人网站的开发过程与设计思考。',
-    date: '2026-06',
-    tag: '项目日志',
-    color: 'warm-peach-pink',
-    readTime: '6分钟',
-  },
-]
+const TAG_COLOR_MAP: Record<string, string> = {
+  '电路设计': 'app-blue',
+  '工具实践': 'app-green',
+  '跨界探索': 'app-orange',
+  '学习记录': 'purple',
+  '竞赛经历': 'app-yellow',
+  '项目日志': 'warm-peach-pink',
+}
 
-const Blog: React.FC = () => {
+const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
+  const posts = getAllPosts()
+
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', animation: 'fadeInUp 0.5s ease' }}>
       <Title size="large" color="app-yellow">博客</Title>
@@ -86,11 +35,12 @@ const Blog: React.FC = () => {
           gap: 16,
         }}
       >
-        {POSTS.map((post) => (
+        {posts.map((post) => (
           <Card
-            key={post.id}
-            color={post.color as any}
+            key={post.slug}
+            color={(TAG_COLOR_MAP[post.tag] ?? 'app-blue') as any}
             style={{ cursor: 'pointer', padding: '22px 18px', transition: 'transform 0.2s ease' }}
+            onClick={() => onNavigate(`blog/${post.slug}`)}
           >
             <div style={{ fontSize: 13, fontWeight: 700, opacity: 0.7, marginBottom: 12, letterSpacing: 0.5 }}>
               #{post.tag}

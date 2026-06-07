@@ -9,9 +9,13 @@ import Resume from './pages/Resume'
 import Projects from './pages/Projects'
 import Skills from './pages/Skills'
 import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import Contact from './pages/Contact'
 
-function renderPage(key: string): React.ReactNode {
+function renderPage(key: string, blogSlug: string, navigate: (path: string) => void): React.ReactNode {
+  if (key === 'blog' && blogSlug) {
+    return <BlogPost slug={blogSlug} onNavigate={navigate} />
+  }
   switch (key) {
     case 'about':
       return <About />
@@ -22,7 +26,7 @@ function renderPage(key: string): React.ReactNode {
     case 'skills':
       return <Skills />
     case 'blog':
-      return <Blog />
+      return <Blog onNavigate={navigate} />
     case 'contact':
       return <Contact />
     default:
@@ -36,7 +40,10 @@ const App: React.FC = () => {
   const [loadingActive, setLoadingActive] = useState(false)
   const [loadingMounted, setLoadingMounted] = useState(false)
 
-  const activeKey = hash === '/' || hash === '' ? 'home' : hash.slice(1)
+  const rawPath = hash === '/' || hash === '' ? '' : hash.slice(1)
+  const isBlogPost = rawPath.startsWith('blog/') && rawPath.length > 5
+  const activeKey = isBlogPost ? 'blog' : rawPath
+  const blogSlug = isBlogPost ? rawPath.slice(5) : ''
   const isHomePage = activeKey === 'home'
 
   const handleHomeNavigate = useCallback(
@@ -56,7 +63,7 @@ const App: React.FC = () => {
         <Home onNavigate={handleHomeNavigate} />
       ) : (
         <Layout activeKey={activeKey} onNavigate={navigate} isMobile={isMobile}>
-          {renderPage(activeKey)}
+          {renderPage(activeKey, blogSlug, navigate)}
         </Layout>
       )}
 

@@ -1,0 +1,136 @@
+@teal: #19c8b9;
+@dark-brown: #4a4238;
+@text-muted: #6e6557;
+@border-warm: #e0d8c8;
+@bg-warm: #faf7f0;
+@font-family: Nunito, 'Noto Sans SC', 'Zen Maru Gothic', -apple-system, 'PingFang SC',
+  'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+
+.content {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: @font-family;
+    font-weight: 800;
+    color: @dark-brown;
+    margin-top: 28px;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 26px;
+    border-bottom: 2px solid @border-warm;
+    padding-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 22px;
+    border-bottom: 1px solid @border-warm;
+    padding-bottom: 6px;
+  }
+
+  h3 {
+    font-size: 19px;
+  }
+
+  p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: @text-muted;
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  img {
+    border-radius: 16px;
+    max-width: 100%;
+    margin: 16px 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    display: block;
+  }
+
+  a {
+    color: @teal;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  blockquote {
+    border-left: 4px solid @teal;
+    padding: 12px 16px;
+    margin: 16px 0;
+    background: rgba(25, 200, 185, 0.05);
+    border-radius: 0 12px 12px 0;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  ul,
+  ol {
+    padding-left: 24px;
+    color: @text-muted;
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+
+  th,
+  td {
+    border: 1px solid @border-warm;
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  th {
+    background: @bg-warm;
+    font-weight: 700;
+    color: @dark-brown;
+  }
+
+  td {
+    background: #fdfcf9;
+    color: @text-muted;
+  }
+
+  code {
+    background: rgba(25, 200, 185, 0.1);
+    color: @teal;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  }
+
+  pre {
+    margin: 16px 0;
+    border-radius: 20px;
+    overflow-x: auto;
+  }
+
+  hr {
+    border: none;
+    margin: 24px 0;
+  }
+
+  ::selection {
+    background: rgba(25, 200, 185, 0.2);
+  }
+}
