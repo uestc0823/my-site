@@ -63,6 +63,7 @@ const S = {
     fontSize: 16,
     cursor: 'pointer',
     marginTop: 24,
+    marginBottom: 40,
     transition: 'opacity 0.2s',
   } as React.CSSProperties,
   notFound: {
@@ -71,17 +72,6 @@ const S = {
     textAlign: 'center' as const,
     paddingTop: 80,
     fontFamily: FONT_FAMILY,
-  } as React.CSSProperties,
-  notFoundTitle: {
-    fontSize: 24,
-    fontWeight: 800,
-    color: '#4a4238',
-    marginBottom: 12,
-  } as React.CSSProperties,
-  notFoundText: {
-    fontSize: 17,
-    color: '#6e6557',
-    marginBottom: 24,
   } as React.CSSProperties,
 }
 
@@ -105,11 +95,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
   if (!post) {
     return (
       <div style={S.notFound}>
-        <div style={S.notFoundTitle}>文章未找到</div>
-        <div style={S.notFoundText}>抱歉，您访问的文章不存在。</div>
-        <div style={S.backLink} onClick={() => onNavigate('blog')}>
-          返回博客列表
-        </div>
+        <div style={{ fontSize: 24, fontWeight: 800, color: '#4a4238', marginBottom: 12 }}>文章未找到</div>
+        <div style={{ fontSize: 17, color: '#6e6557', marginBottom: 24 }}>抱歉，您访问的文章不存在。</div>
+        <div style={S.backLink} onClick={() => onNavigate('/blog')}>返回博客列表</div>
       </div>
     )
   }
@@ -141,15 +129,18 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
           components={{
             pre({ children, ...props }) {
               try {
-                const codeEl = React.Children.toArray(children).find(
-                  (child) => React.isValidElement(child) && (child as React.ReactElement).type === 'code'
-                ) as React.ReactElement<{ children?: React.ReactNode }> | undefined
-                if (codeEl?.props?.children) {
-                  const codeString = String(codeEl.props.children).replace(/\n$/, '')
-                  return <CodeBlock code={codeString} />
+                const childArr = React.Children.toArray(children)
+                for (const child of childArr) {
+                  if (React.isValidElement(child) && (child as React.ReactElement).type === 'code') {
+                    const codeProps = (child as React.ReactElement<{ children?: React.ReactNode }>).props
+                    if (codeProps?.children) {
+                      const codeString = String(codeProps.children).replace(/\n$/, '')
+                      return <CodeBlock code={codeString} />
+                    }
+                  }
                 }
               } catch {
-                // fallback to default pre rendering
+                // fallback
               }
               return <pre {...props}>{children}</pre>
             },
@@ -161,8 +152,8 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
 
       <Divider type="line-brown" />
 
-      <div style={S.backLink} onClick={() => onNavigate('blog')}>
-        返回博客列表
+      <div style={S.backLink} onClick={() => onNavigate('/blog')}>
+        ← 返回博客列表
       </div>
     </div>
   )
