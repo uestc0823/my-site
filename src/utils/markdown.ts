@@ -14,7 +14,11 @@ export interface BlogPostMeta extends BlogFrontmatter {
 const modules = import.meta.glob('/src/content/blog/*.md', {
   query: '?raw',
   eager: true,
-}) as Record<string, string>
+}) as Record<string, { default: string }>
+
+function getRawContent(mod: { default: string } | string): string {
+  return typeof mod === 'string' ? mod : mod.default
+}
 
 function parseFrontmatter(raw: string): { frontmatter: BlogFrontmatter; body: string } {
   const trimmed = raw.trim()
@@ -63,8 +67,8 @@ function extractSlug(path: string): string {
 }
 
 const allPosts: BlogPostMeta[] = Object.entries(modules)
-  .map(([path, raw]) => {
-    const { frontmatter } = parseFrontmatter(raw)
+  .map(([path, mod]) => {
+    const { frontmatter } = parseFrontmatter(getRawContent(mod))
     return { ...frontmatter, slug: extractSlug(path) }
   })
   .sort((a, b) => b.date.localeCompare(a.date))
@@ -84,7 +88,7 @@ export function getPostBySlug(slug: string): { frontmatter: BlogFrontmatter; bod
     return null
   }
 
-  const result = parseFrontmatter(entry[1])
+  const result = parseFrontmatter(getRawContent(entry[1]))
   postCache[slug] = result
   return result
 }
