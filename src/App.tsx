@@ -42,7 +42,7 @@ const App: React.FC = () => {
 
   const rawPath = hash === '/' || hash === '' ? '' : hash.slice(1)
   const isBlogPost = rawPath.startsWith('blog/') && rawPath.length > 5
-  const activeKey = isBlogPost ? 'blog' : rawPath
+  const activeKey = isBlogPost ? 'blog' : (rawPath || 'home')
   const blogSlug = isBlogPost ? rawPath.slice(5) : ''
   const isHomePage = activeKey === 'home'
 
