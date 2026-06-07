@@ -39,7 +39,7 @@ const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
           <Card
             key={post.slug}
             color={(TAG_COLOR_MAP[post.tag] ?? 'app-blue') as any}
-            style={{ cursor: 'pointer', padding: '22px 18px', transition: 'transform 0.2s ease' }}
+            style={{ cursor: 'pointer' }}
             onClick={() => onNavigate(`blog/${post.slug}`)}
           >
             <div style={{ fontSize: 13, fontWeight: 700, opacity: 0.7, marginBottom: 12, letterSpacing: 0.5 }}>
