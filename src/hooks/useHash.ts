@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from 'react'
 
 export const useHash = () => {
   const [hash, setHash] = useState(
-    () => window.location.hash.slice(1) || '/'
+    () => decodeURIComponent(window.location.hash.slice(1)) || '/'
   )
 
   useEffect(() => {
     const onHashChange = () =>
-      setHash(window.location.hash.slice(1) || '/')
+      setHash(decodeURIComponent(window.location.hash.slice(1)) || '/')
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
