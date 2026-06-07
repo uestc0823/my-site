@@ -139,10 +139,19 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
-            pre({ children }) {
-              const codeEl = children as React.ReactElement<{ children?: React.ReactNode }>
-              const codeString = String(codeEl?.props?.children ?? '').replace(/\n$/, '')
-              return <CodeBlock code={codeString} />
+            pre({ children, ...props }) {
+              try {
+                const codeEl = React.Children.toArray(children).find(
+                  (child) => React.isValidElement(child) && (child as React.ReactElement).type === 'code'
+                ) as React.ReactElement<{ children?: React.ReactNode }> | undefined
+                if (codeEl?.props?.children) {
+                  const codeString = String(codeEl.props.children).replace(/\n$/, '')
+                  return <CodeBlock code={codeString} />
+                }
+              } catch {
+                // fallback to default pre rendering
+              }
+              return <pre {...props}>{children}</pre>
             },
           }}
         >
