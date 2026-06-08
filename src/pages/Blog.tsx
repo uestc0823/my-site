@@ -66,7 +66,7 @@ const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
         <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
           <Collapse
             question="博客的更新频率？"
-            answer="大约每周 1-2 篇。不追热点，只写经过思考、值得分享的内容。"
+            answer="随缘更新。不追热点，只写经过思考、值得分享的内容。"
           />
           <Collapse
             question="文章可以转载吗？"

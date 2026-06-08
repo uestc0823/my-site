@@ -5,4 +5,5 @@ dist/
 .env.production
 scripts/
 api/
+docs/
 cf-worker-contact.js
