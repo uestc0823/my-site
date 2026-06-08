@@ -75,14 +75,17 @@ export const Title: React.FC<TitleProps> = ({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '2em',
+          minHeight: '2em',
           padding: '0 1.6em',
           color: colors.text,
           fontWeight: 900,
           letterSpacing: '0.04em',
-          whiteSpace: 'nowrap',
+          whiteSpace: 'normal',
+          wordBreak: 'break-word',
           fontSize: `${fontSize}px`,
           filter: 'drop-shadow(0 0.08em 0.12em rgba(0, 0, 0, 0.05))',
+          maxWidth: '100%',
+          boxSizing: 'border-box',
         }}
       >
         {/* Left tail */}
@@ -162,10 +165,14 @@ export const Title: React.FC<TitleProps> = ({
             fontSize: 'inherit',
             display: 'inline-flex',
             alignItems: 'center',
-            height: '2em',
+            minHeight: '2em',
             paddingTop: '0.11em',
             color: colors.text,
             textShadow: '0 0.04em 0.08em rgba(0, 0, 0, 0.05)',
+            whiteSpace: 'normal',
+            wordBreak: 'break-word',
+            textAlign: 'center',
+            lineHeight: 1.3,
           }}
         >
           {children}

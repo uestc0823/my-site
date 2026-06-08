@@ -34,7 +34,7 @@ const S = {
     gap: 12,
     fontSize: 14,
     color: '#8a7b66',
-    marginTop: 12,
+    marginTop: 20,
     marginBottom: 20,
     flexWrap: 'wrap' as const,
   } as React.CSSProperties,
@@ -141,6 +141,21 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
                 // fallback
               }
               return <pre {...props}>{children}</pre>
+            },
+            h1: ({ children, ...props }) => {
+              const text = String(children).replace(/\*\*/g, '')
+              const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+              return <h1 id={id} {...props}>{children}</h1>
+            },
+            h2: ({ children, ...props }) => {
+              const text = String(children).replace(/\*\*/g, '')
+              const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+              return <h2 id={id} {...props}>{children}</h2>
+            },
+            h3: ({ children, ...props }) => {
+              const text = String(children).replace(/\*\*/g, '')
+              const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+              return <h3 id={id} {...props}>{children}</h3>
             },
           }}
         >

@@ -6,6 +6,7 @@ interface LayoutProps {
   onNavigate: (path: string) => void
   isMobile: boolean
   children: React.ReactNode
+  sidebarContent?: React.ReactNode
 }
 
 const S = {
@@ -102,7 +103,7 @@ const PAGE_TITLES: Record<string, string> = {
   contact: '联系',
 }
 
-const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, children }) => {
+const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, children, sidebarContent }) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
 
@@ -120,7 +121,7 @@ const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, childr
       {/* Desktop sidebar */}
       {!isMobile && (
         <aside style={S.sidebar}>
-          <Sidebar activeKey={activeKey} onNavigate={onNavigate} />
+          {sidebarContent ?? <Sidebar activeKey={activeKey} onNavigate={onNavigate} />}
         </aside>
       )}
 
@@ -144,7 +145,7 @@ const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, childr
         <>
           <div style={S.overlay} onClick={() => setDrawerOpen(false)} />
           <aside style={S.drawer}>
-            <Sidebar activeKey={activeKey} onNavigate={onNavigate} />
+            {sidebarContent ?? <Sidebar activeKey={activeKey} onNavigate={onNavigate} />}
           </aside>
         </>
       )}
