@@ -151,7 +151,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onNavigate }) => {
       {/* 社交链接 */}
       <div style={S.socialRow}>
         <a
-          href="https://github.com/LiuXiao200311"
+          href="https://github.com/uestc0823"
           target="_blank"
           rel="noopener noreferrer"
           style={S.socialBtn}
@@ -160,7 +160,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onNavigate }) => {
           G
         </a>
         <a
-          href="https://gitee.com/LiuXiao-200311"
+          href="https://gitee.com/JimmyLiu0823"
           target="_blank"
           rel="noopener noreferrer"
           style={{ ...S.socialBtn, background: '#e05a5a', boxShadow: '0 2px 0 0 #c94444' }}

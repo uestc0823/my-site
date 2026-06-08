@@ -115,6 +115,7 @@ const Projects: React.FC = () => {
         open={!!selected}
         title={selected?.name}
         onClose={() => setSelected(null)}
+        onOk={() => setSelected(null)}
         typewriter={false}
       >
         <p style={{ fontSize: 17, fontWeight: 500, color: '#725d42', marginBottom: 16, lineHeight: 1.7 }}>
