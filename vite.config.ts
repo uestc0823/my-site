@@ -4,6 +4,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: './',
   plugins: [react()],
+  cacheDir: '.build/vite-cache',
+  build: {
+    outDir: '.build/dist',
+  },
   css: {
     modules: {
       generateScopedName: 'animal-[local]-[hash:base64:5]',
