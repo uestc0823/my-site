@@ -3,7 +3,7 @@ title: "AI生成个人网页操作指南"
 date: "2026-06-07"
 tag: "工具实践"
 excerpt: "使用DeepSeek、Claude Code及uiuxpromax Skill，结合Node.js和VS Code，从零搭建个人网页的完整流程与工具配置方法。"
-cover: "/assets/blog/ai生成个人网页操作指南.jpg"
+cover: "./assets/blog/ai生成个人网页操作指南.jpg"
 readTime: "8分钟"
 ---
 记录使用AI工具生成个人网页的方法，记录学习工作心得，丰富简历，提高竞争力。
