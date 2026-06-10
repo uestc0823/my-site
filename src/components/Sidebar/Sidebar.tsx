@@ -144,7 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onNavigate }) => {
         </div>
         <div style={S.contactItem}>
           <span style={S.contactIcon}>📍</span>
-          <span>武汉</span>
+          <span>湖北武汉</span>
         </div>
       </div>
 
