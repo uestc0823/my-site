@@ -31,7 +31,13 @@ function slugifyHeading(text: string): string {
 function extractHeadings(markdown: string): TocItem[] {
   const items: TocItem[] = []
   const lines = markdown.replace(/\r\n/g, '\n').split('\n')
+  let inCodeBlock = false
   for (const line of lines) {
+    if (line.trimStart().startsWith('```')) {
+      inCodeBlock = !inCodeBlock
+      continue
+    }
+    if (inCodeBlock) continue
     const match = line.match(/^(#{1,3})\s+(.+)$/)
     if (match) {
       const text = match[2].replace(/\*\*/g, '').trim()
