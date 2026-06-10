@@ -91,7 +91,7 @@ const About: React.FC = () => {
               <div style={{ fontWeight: 700, fontSize: 17, marginBottom: 6 }}>核心方向</div>
               <div style={{ fontSize: 15, opacity: 0.85, lineHeight: 1.5 }}>信号链 IC 与电力电子技术</div>
             </Card>
-            <Card color="purple" style={{ textAlign: 'center', padding: '20px 14px' }}>
+            <Card color="purple" style={{ textAlign: 'center', padding: '20px 14px', cursor: 'pointer' }} onClick={() => window.open('https://ieeexplore.ieee.org/document/11269677', '_blank')}>
               <div style={{ fontSize: 30, marginBottom: 6 }}>📄</div>
               <div style={{ fontWeight: 700, fontSize: 17, marginBottom: 6 }}>学术成果</div>
               <div style={{ fontSize: 15, opacity: 0.85, lineHeight: 1.5 }}>发表 JCR Q1 顶级期刊论文</div>
