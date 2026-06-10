@@ -5,3 +5,9 @@ node_modules/
 scripts/
 api/
 cf-worker-contact.js
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
