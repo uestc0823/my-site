@@ -38,7 +38,7 @@ function extractHeadings(markdown: string): TocItem[] {
       continue
     }
     if (inCodeBlock) continue
-    const match = line.match(/^(#{1,3})\s+(.+)$/)
+    const match = line.match(/^(#{1,4})\s+(.+)$/)
     if (match) {
       const text = match[2].replace(/\*\*/g, '').trim()
       items.push({

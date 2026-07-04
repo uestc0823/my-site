@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
 import { Divider, CodeBlock } from 'animal-island-ui'
 import Title from '../components/Title/Title'
 import { getPostBySlug } from '../utils/markdown'
@@ -123,7 +126,8 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
 
       <div className={styles.content}>
         <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeKatex]}
           components={{
             pre({ children, ...props }) {
               try {
@@ -156,6 +160,11 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
               const text = String(children).replace(/\*\*/g, '')
               const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
               return <h3 id={id} {...props}>{children}</h3>
+            },
+            h4: ({ children, ...props }) => {
+              const text = String(children).replace(/\*\*/g, '')
+              const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+              return <h4 id={id} {...props}>{children}</h4>
             },
           }}
         >
