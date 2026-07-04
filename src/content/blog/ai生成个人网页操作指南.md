@@ -14,8 +14,7 @@ readTime: "8分钟"
 
 1. 内容产出AI：确定网页的内容，让网页更饱满，此次选用**DeepSeek网页版** 。
 2. 编程任务AI：构建网页框架、代码等技术性问题，此次选用**Claude Code** 搭载**mimo-v2.5-pro** 。
-3. 网页风格、审美等辅助任务：使用与**Claude Code** 相搭配的**Skill** ，确保网页质量上乘。使用的Skill包括**ui-ux-pro-max**
-
+3. 网页风格、审美等辅助任务：使用与**Claude Code** 相搭配的**Skill** ，确保网页质量上乘。使用的Skill包括**ui-ux-pro-max
 > 注：此教程默认您已经安装了Claude Code及一系列工具，如Node.js、git，以及可用的 API 密钥（API key），若您没有这些工具，可以搜索相关教程，此处不再赘述如何配置环境。
 
 # 二.工具介绍
@@ -30,7 +29,7 @@ readTime: "8分钟"
 
 内置 57 种 UI 风格，如 Glassmorphism、Claymorphism、Minimalism、Brutalism、Neumorphism、Bento Grid、Dark Mode 等。
 
-**行业配色与字体** ：
+**行业配色与字体**：
 
 95 套按行业划分的配色方案（SaaS、电商、金融、医疗、美妆等），以及 56 组字体搭配（含标题与正文字体组合）。
 
@@ -149,7 +148,9 @@ your-project-root/
 
 #### 审美要求
 
-**核心设计目标** ：打造兼具专业质感与个人风格的个人网站，设计水平应向**Awwwards** 的获奖网站标准看齐。** 实现方式**：
+**核心设计目标** ：打造兼具专业质感与个人风格的个人网站，设计水平应向**Awwwards** 的获奖网站标准看齐。
+
+** 实现方式**：
 
 - **不要使用内置规则** 。所有具体审美标准（颜色、圆角、字体、间距、响应式断点、微交互等）必须通过以下方式获取：
 
@@ -282,9 +283,9 @@ https://github.com/guokaigdg/animal-island-ui
 
 作者以 DeepSeek（内容）、Claude Code + ui-ux-pro-max skill（代码与设计约束）为核心工具，从项目文件管理、行为规范（Claude.md）到实战效果逐一展开。尤其可贵的是，文章没有掩饰 AI 生成网页常见的“AI味”——苍白背景、混乱排版、塑料感按钮，而是直击痛点，给出了经过验证的解决方案：
 
-1. 放弃让 AI 原创设计 → 改为让 AI 模仿优秀案例。
+**1. 放弃让 AI 原创设计 → 改为让 AI 模仿优秀案例。**
 2. 引入 `styles.refero.design` → 为 AI 提供结构化设计规范（DESIGN.md），约束审美逻辑。
-3. 利用 GitHub 高 Star 模板 → 为 AI 提供现成的 UI 组件库，避免它“自己造轮子”。
-4. 组合工作流：拷贝优秀 UI 项目 → 搭配 refero 风格规范 → 与 AI 讨论需求 → 生成最终网页。
+**3. 利用 GitHub 高 Star 模板 → 为 AI 提供现成的 UI 组件库，避免它“自己造轮子”。**
+**4. 组合工作流：拷贝优秀 UI 项目 → 搭配 refero 风格规范 → 与 AI 讨论需求 → 生成最终网页。**
 
 最终改良效果（基于 `vcard-personal-portfolio` 模板）已展现出成熟、可落地的个人网站雏形。文章还提供了 Awwwards、Godly、Site of Sites 等审美资源导航，以及进阶的动森 UI 组件等趣味扩展方向，让读者能自己搭配出符合自己风格的个性化趣味网站。
