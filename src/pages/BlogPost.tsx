@@ -85,6 +85,21 @@ const TAG_PILL_COLORS: Record<string, string> = {
   '随笔杂谈': '#9B6DD7',
 }
 
+function extractTextContent(children: React.ReactNode): string {
+  return React.Children.toArray(children)
+    .map(child => {
+      if (typeof child === 'string' || typeof child === 'number') return String(child)
+      if (React.isValidElement(child)) return extractTextContent(child.props.children)
+      return ''
+    })
+    .join('')
+}
+
+function headingId(children: React.ReactNode): string {
+  const text = extractTextContent(children)
+  return text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+}
+
 const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
   const post = getPostBySlug(slug)
 
@@ -126,7 +141,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
 
       <div className={styles.content}>
         <ReactMarkdown
-          remarkPlugins={[remarkGfm, remarkMath]}
+          remarkPlugins={[remarkMath, remarkGfm]}
           rehypePlugins={[rehypeKatex]}
           components={{
             pre({ children, ...props }) {
@@ -146,26 +161,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
               }
               return <pre {...props}>{children}</pre>
             },
-            h1: ({ children, ...props }) => {
-              const text = String(children).replace(/\*\*/g, '')
-              const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-              return <h1 id={id} {...props}>{children}</h1>
-            },
-            h2: ({ children, ...props }) => {
-              const text = String(children).replace(/\*\*/g, '')
-              const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-              return <h2 id={id} {...props}>{children}</h2>
-            },
-            h3: ({ children, ...props }) => {
-              const text = String(children).replace(/\*\*/g, '')
-              const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-              return <h3 id={id} {...props}>{children}</h3>
-            },
-            h4: ({ children, ...props }) => {
-              const text = String(children).replace(/\*\*/g, '')
-              const id = text.toLowerCase().replace(/[^\w一-鿿\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-              return <h4 id={id} {...props}>{children}</h4>
-            },
+            h1: ({ children, ...props }) => <h1 id={headingId(children)} {...props}>{children}</h1>,
+            h2: ({ children, ...props }) => <h2 id={headingId(children)} {...props}>{children}</h2>,
+            h3: ({ children, ...props }) => <h3 id={headingId(children)} {...props}>{children}</h3>,
+            h4: ({ children, ...props }) => <h4 id={headingId(children)} {...props}>{children}</h4>,
           }}
         >
           {body}
