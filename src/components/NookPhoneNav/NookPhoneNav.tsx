@@ -66,10 +66,16 @@ const NookPhoneNav: React.FC<NookPhoneNavProps> = ({
           {/* Apps Grid */}
           <div className={styles.appsGrid}>
             {apps.map((app) => (
-              <div
+              <a
                 key={app.id}
                 className={styles.appItem}
-                onClick={() => onNavigate(app.route)}
+                href={`#${app.route}`}
+                aria-label={app.label}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  onNavigate(app.route)
+                }}
               >
                 <div
                   className={styles.appTile}
@@ -83,7 +89,7 @@ const NookPhoneNav: React.FC<NookPhoneNavProps> = ({
                   {app.hasNotification && <div className={styles.badge} />}
                 </div>
                 <span className={styles.appLabel}>{app.label}</span>
-              </div>
+              </a>
             ))}
           </div>
 

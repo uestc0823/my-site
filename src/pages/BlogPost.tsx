@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -6,20 +6,12 @@ import rehypeKatex from 'rehype-katex'
 import 'katex/dist/katex.min.css'
 import { Divider, CodeBlock } from 'animal-island-ui'
 import Title from '../components/Title/Title'
-import { getPostBySlug } from '../utils/markdown'
+import { getPostBySlug, extractHeadings, TAG_COLOR_MAP } from '../utils/markdown'
 import styles from '../styles/blogPost.module.less'
 
 interface BlogPostProps {
   slug: string
   onNavigate: (path: string) => void
-}
-
-const TAG_COLOR_MAP: Record<string, string> = {
-  '工具实践': 'app-green',
-  '技术笔记': 'app-blue',
-  '项目日志': 'warm-peach-pink',
-  '跨界探索': 'app-orange',
-  '随笔杂谈': 'purple',
 }
 
 const FONT_FAMILY = "Nunito, 'Noto Sans SC', 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
@@ -60,10 +52,11 @@ const S = {
     display: 'inline-flex',
     alignItems: 'center',
     gap: 6,
-    color: '#19c8b9',
+    color: '#0f7f75',
     fontWeight: 700,
     fontSize: 16,
     cursor: 'pointer',
+    textDecoration: 'none',
     marginTop: 24,
     marginBottom: 40,
     transition: 'opacity 0.2s',
@@ -103,6 +96,16 @@ function headingId(children: React.ReactNode): string {
 const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
   const post = getPostBySlug(slug)
 
+  // 用共享的标题提取器生成与 TOC 完全一致的 id（重复标题会自动加序号）
+  const headingIdsByLine = useMemo(() => {
+    const ids = new Map<number, string>()
+    if (!post) return ids
+    for (const item of extractHeadings(post.body)) {
+      ids.set(item.line, item.id)
+    }
+    return ids
+  }, [post])
+
   useEffect(() => {
     const main = document.querySelector('main')
     if (main) main.scrollTo({ top: 0 })
@@ -113,7 +116,16 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
       <div style={S.notFound}>
         <div style={{ fontSize: 24, fontWeight: 800, color: '#4a4238', marginBottom: 12 }}>文章未找到</div>
         <div style={{ fontSize: 17, color: '#6e6557', marginBottom: 24 }}>抱歉，您访问的文章不存在。</div>
-        <div style={S.backLink} onClick={() => onNavigate('/blog')}>返回博客列表</div>
+        <a
+          href="#/blog"
+          style={S.backLink}
+          onClick={(e) => {
+            e.preventDefault()
+            onNavigate('/blog')
+          }}
+        >
+          返回博客列表
+        </a>
       </div>
     )
   }
@@ -124,7 +136,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
 
   return (
     <div style={S.container}>
-      <Title size="large" color={tagColor as any}>{frontmatter.title}</Title>
+      <Title size="large" color={tagColor}>{frontmatter.title}</Title>
 
       <div style={S.metaBar}>
         <span style={{ ...S.tagPill, background: pillColor }}>#{frontmatter.tag}</span>
@@ -134,7 +146,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
       </div>
 
       {frontmatter.cover && (
-        <img src={frontmatter.cover} alt={frontmatter.title} style={S.coverImage} />
+        <img src={frontmatter.cover} alt={frontmatter.title} loading="lazy" decoding="async" style={S.coverImage} />
       )}
 
       <Divider type="line-teal" />
@@ -161,10 +173,14 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
               }
               return <pre {...props}>{children}</pre>
             },
-            h1: ({ children, ...props }) => <h1 id={headingId(children)} {...props}>{children}</h1>,
-            h2: ({ children, ...props }) => <h2 id={headingId(children)} {...props}>{children}</h2>,
-            h3: ({ children, ...props }) => <h3 id={headingId(children)} {...props}>{children}</h3>,
-            h4: ({ children, ...props }) => <h4 id={headingId(children)} {...props}>{children}</h4>,
+            // 正文截图统一懒加载，避免长文一进来就把所有大图拉下来
+            img({ src, alt }) {
+              return <img src={src ?? ''} alt={alt ?? ''} loading="lazy" decoding="async" />
+            },
+            h1: ({ node, children, ...props }) => <h1 id={headingIdsByLine.get(node?.position?.start.line ?? -1) ?? headingId(children)} {...props}>{children}</h1>,
+            h2: ({ node, children, ...props }) => <h2 id={headingIdsByLine.get(node?.position?.start.line ?? -1) ?? headingId(children)} {...props}>{children}</h2>,
+            h3: ({ node, children, ...props }) => <h3 id={headingIdsByLine.get(node?.position?.start.line ?? -1) ?? headingId(children)} {...props}>{children}</h3>,
+            h4: ({ node, children, ...props }) => <h4 id={headingIdsByLine.get(node?.position?.start.line ?? -1) ?? headingId(children)} {...props}>{children}</h4>,
           }}
         >
           {body}
@@ -173,8 +189,17 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onNavigate }) => {
 
       <Divider type="line-brown" />
 
-      <div style={S.backLink} onClick={() => onNavigate('/blog')}>
-        ← 返回博客列表
+      <div>
+        <a
+          href="#/blog"
+          style={S.backLink}
+          onClick={(e) => {
+            e.preventDefault()
+            onNavigate('/blog')
+          }}
+        >
+          ← 返回博客列表
+        </a>
       </div>
     </div>
   )

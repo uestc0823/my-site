@@ -1,22 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, Divider, Collapse } from 'animal-island-ui'
 import Title from '../components/Title/Title'
-import { getAllPosts } from '../utils/markdown'
+import { getAllPosts, TAG_COLOR_MAP } from '../utils/markdown'
 
 interface BlogProps {
   onNavigate: (path: string) => void
 }
 
-const TAG_COLOR_MAP: Record<string, string> = {
-  '工具实践': 'app-green',
-  '技术笔记': 'app-blue',
-  '项目日志': 'warm-peach-pink',
-  '跨界探索': 'app-orange',
-  '随笔杂谈': 'purple',
-}
-
 const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
   const posts = getAllPosts()
+
+  // 从文章页返回列表时重置滚动位置（两者 activeKey 相同，Layout 不会自动重置）
+  useEffect(() => {
+    const main = document.querySelector('main')
+    if (main) main.scrollTo({ top: 0 })
+  }, [])
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', animation: 'fadeInUp 0.5s ease' }}>
@@ -35,26 +33,40 @@ const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
         }}
       >
         {posts.map((post) => (
-          <Card
+          <a
             key={post.slug}
-            color={(TAG_COLOR_MAP[post.tag] ?? 'app-blue') as any}
-            style={{ cursor: 'pointer' }}
-            onClick={() => onNavigate(`/blog/${post.slug}`)}
+            href={`#/blog/${post.slug}`}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              textDecoration: 'none',
+              color: 'inherit',
+              cursor: 'pointer',
+            }}
+            onClick={(e) => {
+              e.preventDefault()
+              onNavigate(`/blog/${post.slug}`)
+            }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, opacity: 0.7, marginBottom: 12, letterSpacing: 0.5 }}>
-              #{post.tag}
-            </div>
-            <div style={{ fontWeight: 700, fontSize: 19, lineHeight: 1.4, marginBottom: 10 }}>
-              {post.title}
-            </div>
-            <div style={{ fontSize: 15, lineHeight: 1.7, opacity: 0.85, marginBottom: 18 }}>
-              {post.excerpt}
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 14, opacity: 0.75 }}>
-              <span>{post.date} · {post.readTime}</span>
-              <span style={{ fontWeight: 700 }}>阅读 →</span>
-            </div>
-          </Card>
+            <Card
+              color={TAG_COLOR_MAP[post.tag] ?? 'app-blue'}
+              style={{ height: '100%', display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
+            >
+              <div style={{ fontSize: 13, fontWeight: 700, opacity: 0.7, marginBottom: 12, letterSpacing: 0.5 }}>
+                #{post.tag}
+              </div>
+              <div style={{ fontWeight: 700, fontSize: 19, lineHeight: 1.4, marginBottom: 10 }}>
+                {post.title}
+              </div>
+              <div style={{ fontSize: 15, lineHeight: 1.7, opacity: 0.85, marginBottom: 18 }}>
+                {post.excerpt}
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 14, opacity: 0.75, marginTop: 'auto' }}>
+                <span>{post.date} · {post.readTime}</span>
+                <span style={{ fontWeight: 700 }}>阅读 →</span>
+              </div>
+            </Card>
+          </a>
         ))}
       </div>
 

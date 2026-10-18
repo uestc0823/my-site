@@ -1,11 +1,11 @@
 import React from 'react'
 import { Tabs, Card, Divider, Collapse } from 'animal-island-ui'
-import type { TabItem } from 'animal-island-ui'
+import type { TabItem, CardColor } from 'animal-island-ui'
 import Title from '../components/Title/Title'
 
-const SkillCard: React.FC<{ name: string; sub: string; color: string }> = ({ name, sub, color }) => (
+const SkillCard: React.FC<{ name: string; sub: string; color: CardColor }> = ({ name, sub, color }) => (
   <Card
-    color={color as any}
+    color={color}
     style={{
       textAlign: 'center',
       padding: '20px 12px',

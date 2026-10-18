@@ -118,11 +118,12 @@ const S = {
     paddingLeft: 26,
     fontWeight: 600,
     fontSize: 16,
-    color: active ? '#fff' : '#8a7b66',
+    color: active ? '#fff' : '#6b5c48',
     background: active ? '#B7C6E5' : 'transparent',
     borderRadius: 12,
     transition: 'all 0.15s',
     cursor: 'pointer',
+    textDecoration: 'none',
   }),
 }
 
@@ -130,11 +131,19 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onNavigate }) => {
   return (
     <>
       {/* 个人信息 */}
-      <div style={S.header} onClick={() => onNavigate('/')}>
+      <a
+        href="#/"
+        aria-label="返回首页"
+        style={{ ...S.header, textDecoration: 'none', color: 'inherit' }}
+        onClick={(e) => {
+          e.preventDefault()
+          onNavigate('/')
+        }}
+      >
         <div style={S.avatar}>JL</div>
         <div style={S.name}>JimmyLiu</div>
         <div style={S.title}>纳芯微电子 · 应用工程师</div>
-      </div>
+      </a>
 
       {/* 联系方式 */}
       <div style={S.contactList}>
@@ -171,24 +180,31 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onNavigate }) => {
       </div>
 
       {/* 导航菜单 */}
-      <nav style={S.menuList}>
-        {MENU_ITEMS.map((item) => (
-          <div
-            key={item.key}
-            style={S.menuItem(activeKey === item.key)}
-            onClick={() => onNavigate(item.key === 'home' ? '/' : `/${item.key}`)}
-            onMouseEnter={(e) => {
-              if (activeKey !== item.key)
-                e.currentTarget.style.background = '#d6dff0'
-            }}
-            onMouseLeave={(e) => {
-              if (activeKey !== item.key)
-                e.currentTarget.style.background = 'transparent'
-            }}
-          >
-            {item.label}
-          </div>
-        ))}
+      <nav style={S.menuList} aria-label="主导航">
+        {MENU_ITEMS.map((item) => {
+          const path = item.key === 'home' ? '/' : `/${item.key}`
+          const active = activeKey === item.key
+          return (
+            <a
+              key={item.key}
+              href={`#${path}`}
+              style={S.menuItem(active)}
+              aria-current={active ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault()
+                onNavigate(path)
+              }}
+              onMouseEnter={(e) => {
+                if (!active) e.currentTarget.style.background = '#d6dff0'
+              }}
+              onMouseLeave={(e) => {
+                if (!active) e.currentTarget.style.background = 'transparent'
+              }}
+            >
+              {item.label}
+            </a>
+          )
+        })}
       </nav>
     </>
   )

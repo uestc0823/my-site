@@ -1,3 +1,5 @@
+import type { CardColor } from 'animal-island-ui'
+
 export interface BlogFrontmatter {
   title: string
   date: string
@@ -119,4 +121,66 @@ export function getPostBySlug(slug: string): { frontmatter: BlogFrontmatter; bod
     postCache[slug] = null
     return null
   }
+}
+
+export interface HeadingItem {
+  id: string
+  text: string
+  level: number
+  /** 1-based line number in the markdown body, used to align TOC with rendered headings */
+  line: number
+}
+
+/** 博客标签 → 卡片主题色，Blog 列表和文章页共用一份 */
+export const TAG_COLOR_MAP: Record<string, CardColor> = {
+  '工具实践': 'app-green',
+  '技术笔记': 'app-blue',
+  '项目日志': 'warm-peach-pink',
+  '跨界探索': 'app-orange',
+  '随笔杂谈': 'purple',
+}
+
+function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w一-鿿\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
+/**
+ * Extract h1-h4 headings and give duplicates stable unique ids
+ * (e.g. three "总结" headings become 总结 / 总结-1 / 总结-2).
+ */
+export function extractHeadings(markdown: string): HeadingItem[] {
+  const items: HeadingItem[] = []
+  const seen = new Map<string, number>()
+  const lines = markdown.replace(/\r\n/g, '\n').split('\n')
+  let inCodeBlock = false
+
+  lines.forEach((line, index) => {
+    if (line.trimStart().startsWith('```')) {
+      inCodeBlock = !inCodeBlock
+      return
+    }
+    if (inCodeBlock) return
+
+    const match = line.match(/^(#{1,4})\s+(.+)$/)
+    if (!match) return
+
+    const text = match[2].replace(/\*\*/g, '').trim()
+    const base = slugifyHeading(text) || 'section'
+    const count = seen.get(base) ?? 0
+    seen.set(base, count + 1)
+
+    items.push({
+      id: count === 0 ? base : `${base}-${count}`,
+      text,
+      level: match[1].length,
+      line: index + 1,
+    })
+  })
+
+  return items
 }

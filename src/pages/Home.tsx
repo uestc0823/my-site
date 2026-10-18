@@ -42,8 +42,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <div
         style={{
           textAlign: 'center',
-          marginBottom: isMobile ? 8 : 12,
-          padding: '0 16px',
+          marginBottom: isMobile ? 12 : 16,
+          padding: isMobile ? '12px 18px' : '16px 30px',
+          background: 'rgba(48, 74, 57, 0.72)',
+          border: '1px solid rgba(255,255,255,0.18)',
+          borderRadius: 28,
+          boxShadow: '0 6px 18px rgba(0,0,0,0.12)',
+          maxWidth: 'min(92vw, 720px)',
         }}
       >
         <h1
@@ -54,7 +59,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             textShadow: '0px 4px 1px rgba(0,0,0,0.4)',
             marginBottom: 6,
             letterSpacing: 1,
-            whiteSpace: 'nowrap',
+            whiteSpace: isMobile ? 'normal' : 'nowrap',
           }}
         >
           Jimmy Liu的个人网站
@@ -62,10 +67,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <div
           style={{
             fontSize: isMobile ? 14 : 19,
-            color: 'rgba(255,255,255,0.85)',
+            color: 'rgba(255,255,255,0.92)',
             fontWeight: 600,
             letterSpacing: 0.5,
-            whiteSpace: 'nowrap',
+            whiteSpace: isMobile ? 'normal' : 'nowrap',
           }}
         >
           <Typewriter speed={60} trigger="home-welcome">

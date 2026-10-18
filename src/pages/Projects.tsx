@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Card, Modal, Tooltip, Divider, Button, Collapse } from 'animal-island-ui'
+import type { CardColor } from 'animal-island-ui'
 import Title from '../components/Title/Title'
 
 interface Project {
@@ -7,7 +8,7 @@ interface Project {
   name: string
   desc: string
   detail: string
-  color: string
+  color: CardColor
   tech: string[]
   code?: string
 }
@@ -61,7 +62,7 @@ const Projects: React.FC = () => {
         {PROJECTS.map((project) => (
           <Card
             key={project.id}
-            color={project.color as any}
+            color={project.color}
             style={{ cursor: 'pointer', padding: '24px 18px' }}
             onClick={() => setSelected(project)}
           >
@@ -88,7 +89,15 @@ const Projects: React.FC = () => {
                 </Tooltip>
               ))}
             </div>
-            <Button type="primary" size="small">
+            <Button
+              type="primary"
+              size="small"
+              aria-haspopup="dialog"
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelected(project)
+              }}
+            >
               查看详情
             </Button>
           </Card>

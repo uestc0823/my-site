@@ -106,6 +106,8 @@ const PAGE_TITLES: Record<string, string> = {
 const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, children, sidebarContent }) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const mainRef = useRef<HTMLElement>(null)
+  const drawerRef = useRef<HTMLElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (!isMobile) setDrawerOpen(false)
@@ -115,6 +117,48 @@ const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, childr
     setDrawerOpen(false)
     mainRef.current?.scrollTo({ top: 0 })
   }, [activeKey])
+
+  // 抽屉打开时：Esc 关闭、Tab 焦点循环、关闭后把焦点还给触发按钮
+  useEffect(() => {
+    if (!drawerOpen) return
+    const drawer = drawerRef.current
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const focusables = drawer
+      ? Array.from(drawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
+      : []
+    focusables[0]?.focus()
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setDrawerOpen(false)
+        return
+      }
+      if (e.key !== 'Tab' || focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      if (previouslyFocused && document.contains(previouslyFocused)) previouslyFocused.focus()
+      else menuButtonRef.current?.focus()
+    }
+  }, [drawerOpen])
+
+  // Drawer holds both anchors (site nav) and buttons (in-article TOC entries):
+  // any interactive item closes it so the mobile user immediately sees the result.
+  const closeDrawerIfInteractive = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement
+    if (target.closest('a, button')) setDrawerOpen(false)
+  }
 
   return (
     <div style={S.layout}>
@@ -128,13 +172,13 @@ const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, childr
       {/* Mobile top bar */}
       {isMobile && (
         <div style={S.mobileTopBar}>
-          <button style={S.mobileBtn} onClick={() => onNavigate('/')}>
+          <button style={S.mobileBtn} aria-label="返回首页" onClick={() => onNavigate('/')}>
             ←
           </button>
           <span style={S.mobileTitle}>
             {PAGE_TITLES[activeKey] ?? '页面'}
           </span>
-          <button style={S.mobileBtn} onClick={() => setDrawerOpen(true)}>
+          <button ref={menuButtonRef} style={S.mobileBtn} aria-label="打开菜单" onClick={() => setDrawerOpen(true)}>
             ☰
           </button>
         </div>
@@ -144,7 +188,14 @@ const Layout: React.FC<LayoutProps> = ({ activeKey, onNavigate, isMobile, childr
       {isMobile && drawerOpen && (
         <>
           <div style={S.overlay} onClick={() => setDrawerOpen(false)} />
-          <aside style={S.drawer}>
+          <aside
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="站点菜单"
+            style={S.drawer}
+            onClick={closeDrawerIfInteractive}
+          >
             {sidebarContent ?? <Sidebar activeKey={activeKey} onNavigate={onNavigate} />}
           </aside>
         </>
