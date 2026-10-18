@@ -3,13 +3,21 @@ import { Input, Button, Card, Collapse } from 'animal-island-ui'
 import Divider from '../components/SiteDivider/SiteDivider'
 import Title from '../components/Title/Title'
 
-// 联系方式接口：优先读环境变量，避免把生产地址写死在前端代码里
-const CONTACT_API =
-  (import.meta.env.VITE_CONTACT_API as string | undefined) ??
-  'https://my-site-eight-woad.vercel.app/api/contact'
+// 留言接口（可选）：配置 VITE_CONTACT_API 后会走表单接口；
+// 未配置时自动退化为 mailto，避免后端失效时访客只看到“网络错误”。
+const CONTACT_API = import.meta.env.VITE_CONTACT_API as string | undefined
+const CONTACT_EMAIL = 'mvez14@163.com'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const FONT = "Nunito, 'Noto Sans SC', 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
+
+function buildMailtoUrl(nameValue: string, emailValue: string, messageValue: string): string {
+  const subject = encodeURIComponent(`[网站留言] 来自 ${nameValue.trim()}`)
+  const body = encodeURIComponent(
+    `姓名：${nameValue.trim()}\n邮箱：${emailValue.trim()}\n\n${messageValue.trim()}`
+  )
+  return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
+}
 
 const labelStyle: React.CSSProperties = {
   display: 'block',
@@ -59,6 +67,17 @@ const Contact: React.FC = () => {
     setValidationError(invalid)
     if (invalid) {
       setResult(null)
+      return
+    }
+
+    // 没有配置后端接口时，用邮件客户端兜底（之前的 Vercel 接口已失效）
+    if (!CONTACT_API) {
+      setValidationError(null)
+      setResult({
+        type: 'success',
+        text: `已打开你的邮件客户端，确认发送即可；如果没有弹出，可以直接发邮件到 ${CONTACT_EMAIL}。`,
+      })
+      window.location.href = buildMailtoUrl(name, email, message)
       return
     }
 
@@ -249,6 +268,17 @@ const Contact: React.FC = () => {
                   }}
                 >
                   {result.text}
+                  {result.type === 'error' && (
+                    <>
+                      <br />
+                      <a
+                        href={buildMailtoUrl(name, email, message)}
+                        style={{ color: '#0f7f75', fontWeight: 700, textDecoration: 'underline' }}
+                      >
+                        点此改用邮件发送
+                      </a>
+                    </>
+                  )}
                 </div>
               )}
 
@@ -262,6 +292,12 @@ const Contact: React.FC = () => {
               >
                 {sending ? '发送中...' : '发送留言'}
               </Button>
+
+              <div style={{ fontSize: 14, color: '#6b5c48', textAlign: 'center' }}>
+                {CONTACT_API
+                  ? '留言会直接发送到我的邮箱'
+                  : '点击后会打开你的邮件客户端，确认发送即可'}
+              </div>
             </div>
           </form>
         </Card>
