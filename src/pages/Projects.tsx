@@ -3,6 +3,7 @@ import { Card, Modal, Tooltip, Button, Collapse } from 'animal-island-ui'
 import Divider from '../components/SiteDivider/SiteDivider'
 import type { CardColor } from 'animal-island-ui'
 import Title from '../components/Title/Title'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 interface Project {
   id: string
@@ -43,6 +44,7 @@ const PROJECTS: Project[] = [
 
 const Projects: React.FC = () => {
   const [selected, setSelected] = useState<Project | null>(null)
+  const isMobile = useIsMobile()
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', animation: 'fadeInUp 0.5s ease' }}>
@@ -65,22 +67,45 @@ const Projects: React.FC = () => {
             key={project.id}
             color={project.color}
             hoverable
-            style={{ cursor: 'pointer', padding: '24px 18px' }}
+            style={{
+              cursor: 'pointer',
+              padding: '24px 18px',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
             onClick={() => setSelected(project)}
           >
-            <div style={{ fontWeight: 700, fontSize: 18, marginBottom: 10 }}>
-              {project.name}
-            </div>
-            <div style={{ fontSize: 16, opacity: 0.9, marginBottom: 14, lineHeight: 1.6 }}>
+            <div style={{ fontWeight: 700, fontSize: 18, lineHeight: 1.4, marginBottom: 10 }}>{project.name}</div>
+            {/* 桌面端统一摘要区高度：标题/摘要行数不同时，标签和按钮仍然对齐 */}
+            <div
+              style={{
+                fontSize: 16,
+                opacity: 0.9,
+                lineHeight: 1.6,
+                minHeight: isMobile ? undefined : 78,
+                marginBottom: 14,
+              }}
+            >
               {project.desc}
             </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: 6,
+                flexWrap: 'wrap',
+                alignContent: 'flex-start',
+                minHeight: 26,
+                marginBottom: 16,
+              }}
+            >
               {project.tech.map((t) => (
                 <Tooltip key={t} title={t} variant="island">
                   <span
                     style={{
-                      fontSize: 14,
-                      padding: '4px 12px',
+                      fontSize: 13,
+                      lineHeight: '18px',
+                      padding: '3px 10px',
                       borderRadius: 50,
                       background: 'rgba(255,255,255,0.3)',
                       fontWeight: 600,
@@ -91,17 +116,19 @@ const Projects: React.FC = () => {
                 </Tooltip>
               ))}
             </div>
-            <Button
-              type="primary"
-              size="small"
-              aria-haspopup="dialog"
-              onClick={(e) => {
-                e.stopPropagation()
-                setSelected(project)
-              }}
-            >
-              查看详情
-            </Button>
+            <div style={{ marginTop: 'auto' }}>
+              <Button
+                type="primary"
+                size="small"
+                aria-haspopup="dialog"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelected(project)
+                }}
+              >
+                查看详情
+              </Button>
+            </div>
           </Card>
         ))}
       </div>
