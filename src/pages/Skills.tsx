@@ -1,5 +1,6 @@
 import React from 'react'
-import { Tabs, Card, Divider, Collapse } from 'animal-island-ui'
+import { Tabs, Card, Collapse } from 'animal-island-ui'
+import Divider from '../components/SiteDivider/SiteDivider'
 import type { TabItem, CardColor } from 'animal-island-ui'
 import Title from '../components/Title/Title'
 
@@ -103,7 +104,17 @@ const Skills: React.FC = () => {
       <Divider type="line-yellow" />
 
       <div style={{ marginTop: 32 }}>
-        <Card type="title">持续学习中...</Card>
+        <Card
+          style={{
+            background: '#fdfdf5',
+            borderRadius: '40px 35px 45px 38px',
+            padding: '12px 32px',
+            fontWeight: 600,
+            display: 'inline-block',
+          }}
+        >
+          持续学习中...
+        </Card>
         <div style={{ marginTop: 12, color: '#8a7b66', fontSize: 15, lineHeight: 1.7 }}>
           技术世界日新月异，我始终保持好奇心和学习热情。
           在专注半导体硬件的同时，积极探索 AI 技术在工程领域的应用。

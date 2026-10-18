@@ -1,5 +1,6 @@
 import React from 'react'
-import { Typewriter, Footer } from 'animal-island-ui'
+import { Typewriter } from 'animal-island-ui'
+import Footer from '../components/SiteFooter/SiteFooter'
 import NookPhoneNav from '../components/NookPhoneNav/NookPhoneNav'
 import type { NookPhoneApp } from '../components/NookPhoneNav/NookPhoneNav'
 import { useIsMobile } from '../hooks/useIsMobile'

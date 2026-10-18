@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Input, Button, Card, Divider, Collapse } from 'animal-island-ui'
+import { Input, Button, Card, Collapse } from 'animal-island-ui'
+import Divider from '../components/SiteDivider/SiteDivider'
 import Title from '../components/Title/Title'
 
 // 联系方式接口：优先读环境变量，避免把生产地址写死在前端代码里

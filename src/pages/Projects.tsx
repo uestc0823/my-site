@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Card, Modal, Tooltip, Divider, Button, Collapse } from 'animal-island-ui'
+import { Card, Modal, Tooltip, Button, Collapse } from 'animal-island-ui'
+import Divider from '../components/SiteDivider/SiteDivider'
 import type { CardColor } from 'animal-island-ui'
 import Title from '../components/Title/Title'
 
@@ -63,6 +64,7 @@ const Projects: React.FC = () => {
           <Card
             key={project.id}
             color={project.color}
+            hoverable
             style={{ cursor: 'pointer', padding: '24px 18px' }}
             onClick={() => setSelected(project)}
           >

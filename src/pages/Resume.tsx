@@ -1,5 +1,6 @@
 import React from 'react'
-import { Card, Divider } from 'animal-island-ui'
+import { Card } from 'animal-island-ui'
+import Divider from '../components/SiteDivider/SiteDivider'
 import Title from '../components/Title/Title'
 
 const Resume: React.FC = () => {

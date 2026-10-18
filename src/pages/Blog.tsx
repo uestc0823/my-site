@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { Card, Divider, Collapse } from 'animal-island-ui'
+import { Card, Collapse } from 'animal-island-ui'
+import Divider from '../components/SiteDivider/SiteDivider'
 import Title from '../components/Title/Title'
 import { getAllPosts, TAG_COLOR_MAP } from '../utils/markdown'
 
@@ -50,6 +51,7 @@ const Blog: React.FC<BlogProps> = ({ onNavigate }) => {
           >
             <Card
               color={TAG_COLOR_MAP[post.tag] ?? 'app-blue'}
+              hoverable
               style={{ height: '100%', display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
             >
               <div style={{ fontSize: 13, fontWeight: 700, opacity: 0.7, marginBottom: 12, letterSpacing: 0.5 }}>
